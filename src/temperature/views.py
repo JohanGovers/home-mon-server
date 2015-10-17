@@ -10,14 +10,13 @@ def save_temp_reading(request):
         value = request.POST.get('value')
         date = request.POST.get('date')
 
-        entry, created = TempReading.objects.create(value=value, date=date)
+        entry = TempReading(value=value, date=date)
         entry.save()
 
-        response_data = {}
-        response_data['msg'] = 'Added new entry with value set to ' + str(value)
+        response_msg = 'Added new entry with value set to ' + str(value)
 
         return HttpResponse(
-            json.dumps(response_data),
+            response_msg,
             content_type="application/json"
         )
     else:
